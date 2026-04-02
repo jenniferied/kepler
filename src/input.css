@@ -1,0 +1,8 @@
+/* Tailwind CSS Input File */
+/* This file is processed by Tailwind CLI to generate dist/tailwind.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any custom component or utility classes here if needed */

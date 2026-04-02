@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistic Research: Everything Machine (Kepler)</title>
+    
+    <!-- Tailwind CSS (pre-built) -->
+    <link rel="stylesheet" href="dist/tailwind.css">
+
+    <!-- Externe CSS-Datei -->
+    <link rel="stylesheet" href="dist/style.css">
+    
+    <!-- Google Font "IBM Plex Mono" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Google Font "Press Start 2P" (Pixel Font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation (Nach Vorbild researchcatalogue.net) -->
+    <header class="top-bar">
+        <nav class="flex justify-between items-center w-full">
+            <!-- Linke Seite: Navigation -->
+            <div class="flex items-center">
+                <!-- Dropdown -->
+                <div class="relative">
+                    <button id="contents-toggle" class="nav-link dropdown-toggle active" aria-haspopup="true">Inhalt</button>
+                    <div id="dropdown-menu" class="dropdown-menu" role="menu">
+                        <button class="dropdown-item active" data-page="overview" role="menuitem">Projektübersicht</button>
+                        <button class="dropdown-item" data-page="logbook" role="menuitem">Prozess-Logbuch</button>
+                        <button class="dropdown-item" data-page="about" role="menuitem">Über mich</button>
+                        <button class="dropdown-item" data-page="images" role="menuitem">Bild-Generationen</button>
+                        <button class="dropdown-item" data-page="generations" role="menuitem">Video-Generationen</button>
+                    </div>
+                </div>
+
+                <!-- Mini-Player (Neu) -->
+                <div class="mini-player-container hidden md:flex"> <!-- Player auf kleinen Screens ausblenden -->
+                    <span class="nav-separator">|</span>
+                    <!-- Playlist Toggle Button (Neu) - Vor dem Play-Button -->
+                    <button id="playlist-toggle-btn" class="playlist-toggle-btn hidden md:flex" aria-label="Toggle Playlist">
+                        <!-- SVG Icon für Hamburger-Menü (Sandwich) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </button>
+                    <button id="prev-button" class="play-pause-btn" aria-label="Previous Track">
+                        <!-- SVG Icon für Previous (doppelter Pfeil links) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                            <path d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+                    </button>
+                    <button id="play-pause-button" class="play-pause-btn" aria-label="Play/Pause">
+                        <!-- SVG Icons für Play/Pause (kleiner gemacht) -->
+                        <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                        </svg>
+                        <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5A1.5 1.5 0 0 1 5.5 3.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5A1.5 1.5 0 0 1 10.5 3.5z"/>
+                        </svg>
+                    </button>
+                    <button id="next-button" class="play-pause-btn" aria-label="Next Track">
+                        <!-- SVG Icon für Next (doppelter Pfeil rechts) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            <path d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </button>
+                    <img id="album-cover" class="album-cover-mini" src="" alt="Album Cover" style="display: none;">
+                    <div class="marquee-container">
+                        <div class="marquee-content" id="marquee-content">
+                            <!-- Content wird dynamisch von scripts.js generiert -->
+                        </div>
+                    </div>
+                    <span class="time-display" id="time-display">0:00/0:00</span>
+                    <!-- Audio-Tag bleibt, wird von JS gesteuert -->
+                    <audio id="audio-player" src="" preload="none"></audio>
+                    <!-- Playlist Dropdown Container (Neu) -->
+                    <div id="playlist-dropdown" class="playlist-dropdown">
+                        <!-- Inhalt wird von JS generiert -->
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Rechte Seite: Titel -->
+            <div class="text-right text-gray-400">
+                <span>J. Meier - Everything Machine (Kepler) - 2026</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area (Lädt die "Seiten") -->
+    <main class="container mx-auto">
+
+        <!-- ===== SEITE 1: PROJEKTÜBERSICHT (Dein Exposé) ===== -->
+        <section id="page-overview" class="page-content">
+            <div class="space-y-12 max-w-4xl mx-auto" style="padding-top: 2rem;">
+
+                <!-- Abstract -->
+                <div>
+                    <h3>I / O (Abstract)</h3>
+                    <p class="italic">
+                        Künstler verfügen über eine Fülle von "Inputs" – nicht nur Bilder, sondern auch Musik, Texte und eine schwer fassbare Atmosphäre. Generative KI bietet neue "Output"-Werkzeuge, doch es fehlt an etablierten Prozessen, diese Inputs zur Erweiterung einer bestehenden digitalen Identität zu nutzen. Diese Arbeit untersucht dies in einem explorativen Artistic Research-Prozess am Fallbeispiel des Alter Egos "Kepler". In sechs Experimenten – von Bildgenerierung über Musikproduktion bis zur automatisierten Video-Pipeline – wird untersucht, wie sich der kreative Workflow durch KI-Werkzeuge verändert: schneller, aber weniger kontrollierbar; produktiver, aber mit verschobener Autorschaft.
+                    </p>
+                </div>
+
+                <!-- Point Cloud + 3D Viewer nebeneinander -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div id="point-cloud-viewer-container" class="viewer-container" style="height: 700px; background: transparent;"></div>
+                    <div id="3d-viewer-container" class="viewer-container" style="height: 700px; background: transparent;"></div>
+                </div>
+
+                <!-- Keplers bestehende Arbeiten -->
+                <div class="space-y-4">
+                    <img src="assets/images/kepler-squatting.png?v=20260112" alt="Kepler Pixel-Art" class="floating-element rounded-sm w-full max-w-2xl h-auto mx-auto" data-floating>
+                    <img src="assets/images/album-covers-row.png?v=20260112" alt="Album Cover Übersicht" class="rounded-sm w-full h-auto">
+                    <p class="text-sm text-gray-500 italic text-center mt-4">
+                        Screenshots von seinem
+                        <a href="https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH" target="_blank" rel="noopener" class="text-green-400 hover:text-green-300 inline-flex items-center gap-1">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                            Spotify
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Einleitung -->
+                <div>
+                    <h3>Einleitung</h3>
+                    <div class="space-y-4">
+                        <p>Die Entwicklung generativer KI eröffnet neue Möglichkeiten in der künstlerischen Praxis. Für Künstler, die diese Werkzeuge in ihre bestehenden Workflows integrieren möchten, bedeutet dies eine Phase des Experimentierens, da "Best Practices" oft noch fehlen.</p>
+                        <p>Dieses Artistic Research-Projekt knüpft an eine bestehende künstlerische Kollaboration an: die digitale Identität "Kepler" des Musikers Gavin Just. Aufbauend auf einer gemeinsamen Praxis stellt sich eine Herausforderung: Die visuelle Welt von Kepler entwickelt sich oft langsamer als die musikalische oder performative Ebene.</p>
+
+                        <!-- Existierende Arbeiten -->
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-3 gap-4">
+                                <img src="assets/images/basketball-scene.png?v=20260112" alt="Basketball Szene" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating>
+                                <img src="assets/images/kepler-voxel.png?v=20260112" alt="Kepler im Wasser" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating>
+                                <img src="assets/images/artefakt-1.png?v=20260112" alt="Disco-Herz" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                                <img src="assets/images/artefakt-2.png?v=20260112" alt="Kepler auf dem Mond" class="floating-element rounded-sm object-cover w-full h-auto" data-floating>
+                                <img src="assets/images/inspiration.png?v=20260112" alt="Kepler am Schreibtisch" class="floating-element rounded-sm object-cover w-full h-auto" data-floating>
+                            </div>
+                            <p class="text-sm text-gray-500 italic text-center">Bereits existierende Arbeiten, die ich in Unreal Engine erstellt habe.</p>
+                        </div>
+
+                        <p>Ziel der Arbeit ist ein explorativer, KI-gestützter Prozess, der Keplers visuelle Identität erweitert und seine geplante Transformation vorantreibt.</p>
+                    </div>
+                </div>
+
+                <!-- Forschungsfragen & Methodologie -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3>Forschungsfragen</h3>
+                        <p class="mb-4"><em>Wie verändert der Einsatz multimodaler KI-Systeme (Text, Bild, Audio) den kreativen Prozess bei der Entwicklung einer digitalen Künstleridentität?</em></p>
+                        <ol class="list-decimal list-inside space-y-3">
+                            <li><strong>Workflow:</strong> Welche neuen Arbeitsschritte entstehen? Welche fallen weg?</li>
+                            <li><strong>Autorschaft:</strong> Wer ist Autor:in? Wie verschiebt sich meine Rolle?</li>
+                            <li><strong>Iteration:</strong> Wie beeinflusst die Unmittelbarkeit von KI-Output meinen Prozess?</li>
+                            <li><strong>Scheitern:</strong> Was lerne ich aus fehlgeschlagenen Experimenten?</li>
+                            <li><strong>Ästhetik:</strong> Entwickelt sich eine eigene visuelle Sprache?</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3>Methodologie</h3>
+                        <p class="mb-4">Diese Arbeit folgt dem Paradigma des Practice-Led Research: Die künstlerische Praxis ist Erkenntnisquelle, Wissen entsteht aus dem Prozess selbst. Systematische Experimente mit verschiedenen KI-Tools werden in iterativen Zyklen durchgeführt: von Bildgenerierung über Musikproduktion bis zur Webentwicklung.</p>
+                        <p>Begleitend dokumentiert ein Journal den kreativen Prozess (Intention, Prozess, Ergebnis, Reflexion). Jeder Eintrag wird anschließend einer KI-gestützten strukturierten Reflexion unterzogen, orientiert an fünf Subfragen: Workflow, Autorschaft, Iteration, Scheitern und Ästhetik.</p>
+                    </div>
+                </div>
+
+                <!-- Fotografien des realen Kepler -->
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto">
+                        <img src="assets/images/white-suit.png?v=20260112" alt="Kepler im weißen Anzug" class="floating-element rounded-sm object-cover w-full aspect-[3/4]" data-floating>
+                        <img src="assets/images/broken-glass.png?v=20260112" alt="Kepler mit zerbrochenem Glas" class="floating-element rounded-sm object-cover w-full aspect-[3/4]" data-floating>
+                    </div>
+                    <p class="text-sm text-gray-500 italic text-center">Fotografien des realen Kepler in Kostüm und Szene.</p>
+                </div>
+
+            </div>
+        </section>
+
+
+
+        <!-- ===== SEITE 2: PROZESS-LOGBUCH (Die fließenden Blöcke) ===== -->
+        <section id="page-logbook" class="page-content">
+            <div class="logbook-layout">
+                <!-- Horizontale Timeline oben -->
+                <aside class="timeline-horizontal" id="timeline-sidebar">
+                    <div class="timeline-list" id="timeline-list">
+                        <!-- Timeline-Einträge werden hier dynamisch geladen -->
+                    </div>
+                </aside>
+                
+                <!-- Hauptinhalt: Einzelner Eintrag -->
+                <main class="logbook-main">
+                    <div class="logbook-entry-container" id="logbook-container">
+                        <!-- Einzelner Journal-Eintrag wird hier angezeigt -->
+                    </div>
+                </main>
+            </div>
+        </section>
+
+
+        <!-- ===== SEITE 3: ÜBER MICH (About Page) ===== -->
+        <section id="page-about" class="page-content">
+            <div class="about-layout max-w-4xl mx-auto">
+                <!-- Profile Header -->
+                <div class="about-header">
+                    <div class="about-profile-grid">
+                        <div class="about-image-container">
+                            <img src="assets/icons/user.png" alt="Jennifer Meier" class="about-profile-image">
+                        </div>
+                        <div class="about-info">
+                            <h1 class="about-name">Jennifer Meier</h1>
+                            <p class="about-role">Master Student + Research Assistant</p>
+                            <p class="about-institution">Technische Hochschule OWL</p>
+                            <a href="mailto:m.jennifer@outlook.com" class="about-email">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="inline mr-2">
+                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                </svg>
+                                m.jennifer@outlook.com
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Speech Bubble -->
+                    <div class="about-speech-bubble">
+                        <p>Hi, mein Name ist Jennifer. Ich habe diese Website zusammen mit <a href="https://www.anthropic.com" target="_blank" rel="noopener" class="about-cc-link">Claude Code</a> im Rahmen des Faches Artistic Research erstellt. Unten findest du eine kleine Zusammenfassung meiner Interessen.</p>
+                    </div>
+                    <!-- Interest Graph (inline in profile grid) -->
+                    <div class="about-graph-col">
+                        <div id="interest-graph-container" class="interest-graph-container">
+                            <canvas id="interest-graph-canvas"></canvas>
+                            <div id="interest-graph-detail" class="interest-detail-card" hidden></div>
+                        </div>
+                        <p class="interest-graph-hint">Klicken & ziehen</p>
+                    </div>
+                </div>
+
+                <!-- Interest Cards (removed — detail card via graph click) -->
+                <div class="about-section" style="display:none">
+                    <div class="about-interests-grid">
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Unreal Engine</h3>
+                            <p class="about-interest-desc">Echtzeit-Rendering, Virtual Production und interaktive 3D-Erlebnisse für Film und Forschung.</p>
+                        </div>
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Houdini</h3>
+                            <p class="about-interest-desc">Prozedurale 3D-Workflows, VFX-Simulation und algorithmisches Design für komplexe visuelle Systeme.</p>
+                        </div>
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Prozedurale Generation</h3>
+                            <p class="about-interest-desc">Algorithmische Erzeugung von Welten, Texturen und Strukturen. Zufall als Gestaltungsprinzip.</p>
+                        </div>
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Virtual Production</h3>
+                            <p class="about-interest-desc">LED-Wände, Kamera-Tracking und Echtzeit-Compositing. Die Zukunft der Filmproduktion.</p>
+                        </div>
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.57-3.25 3.92L12 22l-.75-12.08A4.001 4.001 0 0 1 12 2z"/><path d="M9 6.5a5.5 5.5 0 0 0-4.5 4A5.5 5.5 0 0 0 9 15"/><path d="M15 6.5a5.5 5.5 0 0 1 4.5 4A5.5 5.5 0 0 1 15 15"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Künstliche Intelligenz</h3>
+                            <p class="about-interest-desc">Multimodale KI-Systeme (Text, Bild, Audio) für kreative Prozesse und Artistic Research.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== SEITE 4: BILD-GENERATIONEN (Experiment 5) ===== -->
+        <section id="page-images" class="page-content">
+            <div class="space-y-12 max-w-5xl mx-auto" style="padding-top: 2rem;">
+                <div>
+                    <h3 class="vg-page-title">Bild-Generationen</h3>
+                    <p>Experiment 5: Automatisierte Bildpipeline — 9 Modelle × 7 Phasen × 3 Szenen (134 Bilder)</p>
+                </div>
+                <div id="image-gallery-container"></div>
+            </div>
+        </section>
+
+        <!-- ===== SEITE 5: VIDEO-GENERATIONEN (Experiment 6) ===== -->
+        <section id="page-generations" class="page-content">
+            <div class="space-y-12 max-w-5xl mx-auto" style="padding-top: 2rem;">
+                <div>
+                    <h3 class="vg-page-title">Video-Generationen</h3>
+                    <p>Experiment 6: Image-to-Video Modellvergleich — 7 Modelle × 4 Szenen</p>
+                </div>
+                <div id="video-gallery-container"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox-overlay" class="image-lightbox-overlay">
+        <div class="image-lightbox-container" onclick="event.stopPropagation()">
+            <button class="image-lightbox-close" onclick="closeLightbox()" aria-label="Schließen">×</button>
+            <span class="image-lightbox-counter" id="image-lightbox-counter"></span>
+            <button class="image-lightbox-nav prev" onclick="navigateLightbox(-1)" aria-label="Vorheriges Bild">‹</button>
+            <img id="image-lightbox-image" class="image-lightbox-image" src="" alt="">
+            <button class="image-lightbox-nav next" onclick="navigateLightbox(1)" aria-label="Nächstes Bild">›</button>
+            <div class="image-lightbox-caption" id="image-lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Modular Architecture -->
+    <script type="module" src="js/app.js?v=20260112"></script>
+
+</body>
+</html>

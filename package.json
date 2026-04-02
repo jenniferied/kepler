@@ -1,0 +1,20 @@
+{
+  "name": "kepler",
+  "version": "1.0.0",
+  "description": "Kepler's website - music, visuals, digital identity",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/tailwind.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/tailwind.css --watch",
+    "dev": "npx tailwindcss -i ./src/input.css -o ./dist/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "keywords": [
+    "music",
+    "digital-identity",
+    "website"
+  ],
+  "author": "Kepler",
+  "license": "MIT"
+}
