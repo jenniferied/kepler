@@ -4,6 +4,8 @@
   "description": "Kepler's website - music, visuals, digital identity",
   "scripts": {
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/tailwind.css --minify",
+    "build:style": "npx csso-cli dist/style.css --output dist/style.min.css",
+    "build": "npm run build:css && npm run build:style",
     "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/tailwind.css --watch",
     "dev": "npx tailwindcss -i ./src/input.css -o ./dist/tailwind.css --watch"
   },
@@ -16,5 +18,8 @@
     "website"
   ],
   "author": "Kepler",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@chenglou/pretext": "^0.0.4"
+  }
 }
