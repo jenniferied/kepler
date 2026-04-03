@@ -602,7 +602,16 @@ class Application {
     };
 
     this.eventBus.on('playback:play', () => ensureAnalyzer());
-    audioElement.addEventListener('play', () => ensureAnalyzer());
+    audioElement.addEventListener('play', () => {
+      ensureAnalyzer();
+      document.body.classList.add('music-playing');
+    });
+    audioElement.addEventListener('pause', () => {
+      document.body.classList.remove('music-playing');
+    });
+    audioElement.addEventListener('ended', () => {
+      document.body.classList.remove('music-playing');
+    });
 
     console.log('[App] Audio visuals wiring configured');
   }

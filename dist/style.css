@@ -3532,7 +3532,30 @@ main.container {
 .links-logo {
     max-width: 180px;
     width: 100%;
-    margin-bottom: 0;
+    margin: 0 auto;
+    display: block;
+    transition: filter 0.5s ease;
+}
+
+/* Music-reactive logo glow */
+@keyframes logo-pulse {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.3)); }
+    50% { filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.6)) drop-shadow(0 0 40px rgba(74, 222, 128, 0.2)); }
+}
+
+body.music-playing .links-logo {
+    animation: logo-pulse 2s ease-in-out infinite;
+}
+
+/* Music-reactive link cards subtle glow */
+@keyframes card-shimmer {
+    0%, 100% { border-color: #1a1a1a; }
+    50% { border-color: rgba(74, 222, 128, 0.15); }
+}
+
+body.music-playing #page-links .link-card {
+    animation: card-shimmer 3s ease-in-out infinite;
+    animation-delay: calc(var(--card-index, 0) * 0.2s);
 }
 
 .links-tagline {
