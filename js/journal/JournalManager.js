@@ -271,8 +271,8 @@ export class JournalManager {
  */
 window.selectEntry = function(index) {
   // Find the journal manager instance via the app
-  if (window.everythingMachineApp) {
-    const journalManager = window.everythingMachineApp.uiComponents.get('journal-manager');
+  if (window.keplerApp) {
+    const journalManager = window.keplerApp.uiComponents.get('journal-manager');
     if (journalManager) {
       journalManager.selectEntry(index);
     }

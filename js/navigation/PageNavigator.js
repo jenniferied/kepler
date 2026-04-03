@@ -85,7 +85,13 @@ export class PageNavigator {
     
     // Update current page
     this.currentPageId = pageId;
-    
+
+    // Scroll to top of page content
+    window.scrollTo(0, 0);
+    if (targetPage) {
+      targetPage.scrollTop = 0;
+    }
+
     // Emit navigation event
     this.eventBus.emit('nav:pageChanged', { pageId, previousPageId: this.currentPageId });
     

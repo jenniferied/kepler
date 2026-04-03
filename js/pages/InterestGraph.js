@@ -36,25 +36,25 @@ export class InterestGraph {
 
   _initData() {
     const pillars = [
-      { id: 'unreal', label: 'Unreal Engine', big: true, icon: 'unreal', url: 'https://www.unrealengine.com', desc: 'Game Engine für Virtual Production, Echtzeit-Rendering und interaktive Erlebnisse. Kernwerkzeug für meine Arbeit mit virtuellen Welten und immersiven Medien.' },
-      { id: 'houdini', label: 'Houdini', big: true, icon: 'houdini', url: 'https://www.sidefx.com', desc: 'Prozedurale 3D-Software für VFX, Simulation und algorithmisches Design. Ermöglicht die Erzeugung komplexer visueller Systeme durch node-basierte Workflows.' },
-      { id: 'procgen', label: 'Prozedurale\nGeneration', big: true, icon: 'procgen', desc: 'Algorithmische Erzeugung von Welten, Texturen und Strukturen. Zufall als Gestaltungsprinzip — kontrolliertes Chaos für einzigartige Ergebnisse.' },
-      { id: 'vp', label: 'Virtual\nProduction', big: true, icon: 'vp', desc: 'LED-Wände, Kamera-Tracking und Echtzeit-Compositing. Die Zukunft der Filmproduktion — physische und digitale Welten verschmelzen.' },
-      { id: 'ki', label: 'Künstliche\nIntelligenz', big: true, icon: 'ki', desc: 'Multimodale KI-Systeme (Text, Bild, Audio) für kreative Prozesse. Zentrales Forschungsthema: Wie verändert KI den kreativen Workflow?' },
+      { id: 'songwriting', label: 'Songwriting', big: true, icon: 'musik', desc: 'Texte zwischen Alltag und Kosmos. Persönliche Geschichten, die den Status quo des deutschen Sprachgesangs hinterfragen.' },
+      { id: 'produktion', label: 'Produktion', big: true, icon: 'suno', desc: 'Beats, Arrangement, Mixing und Mastering — vom ersten Loop bis zum fertigen Release. Homerecording trifft auf professionellen Anspruch.' },
+      { id: 'deutschrap', label: 'Deutscher\nRap', big: true, icon: 'kepler', url: 'https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH', desc: '„Ich möchte mit meiner Kunst neue Maßstäbe setzen und hoffe, dass vielen klar wird, wie gewöhnlich und austauschbar der heutige Status quo von deutscher Rapmusik ist."' },
+      { id: 'visuals', label: 'Visuals &\nÄsthetik', big: true, icon: 'voxel', desc: 'Voxel-Ästhetik, Musikvideos und visuelle Identität. Retro-3D-Stil zwischen Nostalgie und Zukunft — Keplers unverwechselbare Bildsprache.' },
+      { id: 'ki', label: 'Künstliche\nIntelligenz', big: true, icon: 'ki', desc: 'KI als kreativer Partner im Musikprozess — von Textideen über Bildgenerierung bis zur Klangexploration. Werkzeug und Forschungsobjekt zugleich.' },
     ];
 
     const satellites = [
-      { id: 'comfyui', label: 'ComfyUI', big: false, icon: 'comfyui', url: 'https://www.comfy.org', desc: 'Node-basierter Workflow für Bildgenerierung. Visuelle Programmierung für komplexe Pipelines.' },
-      { id: 'suno', label: 'Suno', big: false, icon: 'suno', url: 'https://suno.com', desc: 'KI-Musikgenerierung — komplette Songs aus Text-Prompts. Wird für Kepler-Tracks und Klangexperimente eingesetzt.' },
-      { id: 'midjourney', label: 'Midjourney', big: false, icon: 'midjourney', url: 'https://www.midjourney.com', desc: 'KI-Bildgenerierung mit starkem ästhetischem Fokus. Wird für Konzeptbilder, Moodboards und visuelle Exploration eingesetzt.' },
-      { id: 'ar', label: 'Artistic\nResearch', big: false, icon: 'ar', url: 'https://www.researchcatalogue.net', desc: 'Praxisbasierte Forschung an der Schnittstelle von Kunst und Wissenschaft. Methodischer Rahmen meiner Masterarbeit.' },
-      { id: 'kepler', label: 'Kepler', big: false, icon: 'kepler', url: 'https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH', desc: 'Digitale Künstleridentität — generiert und weiterentwickelt mit KI-Tools. Alter Ego und Forschungsobjekt zugleich.' },
-      { id: 'worldlabs', label: 'World Labs', big: false, icon: 'worldlabs', url: 'https://www.worldlabs.ai', desc: '3D-Welterzeugung aus einzelnen Bildern. Ermöglicht immersive Räume aus 2D-Konzepten.' },
-      { id: 'claude', label: 'Claude', big: false, icon: 'claude', url: 'https://claude.ai', desc: 'KI-Assistent für Code, Recherche und kreatives Schreiben. Mein primäres Werkzeug für Textarbeit und Programmierung.' },
-      { id: 'cursor', label: 'Cursor', big: false, icon: 'cursor', url: 'https://www.cursor.com', desc: 'KI-gestützter Code-Editor. Beschleunigt die Entwicklung dieser Website und anderer technischer Projekte.' },
-      { id: 'gemini', label: 'Gemini', big: false, icon: 'gemini', url: 'https://gemini.google.com', desc: 'Googles multimodales KI-Modell. Wird für Bild- und Textexperimente im Vergleich zu anderen Systemen eingesetzt.' },
-      { id: 'musik', label: 'Musik-\nproduktion', big: false, icon: 'musik', desc: 'Songwriting, Mixing und Mastering — zunehmend mit KI-Unterstützung. Musikalische Identität von Kepler.' },
-      { id: 'voxel', label: 'Voxel-\nÄsthetik', big: false, icon: 'voxel', desc: 'Retro-3D-Stil mit volumetrischen Pixeln. Keplers visuelle Sprache zwischen Nostalgie und Zukunft.' },
+      { id: 'red', label: 'RED\nEDITION', big: false, icon: 'kepler', url: 'https://open.spotify.com/album/2viSDQgg4DaKIZRWh7HSHx', desc: 'Erste EP der Trilogie (2022). Grundstein der musikalischen Identität von Kepler.' },
+      { id: 'yellow', label: 'YELLOW\nEDITION', big: false, icon: 'kepler', url: 'https://open.spotify.com/album/57mnpOQLV38azZn5DWtB7v', desc: 'Zweite EP der Trilogie (2023). Weiterentwicklung des Sounds und der lyrischen Tiefe.' },
+      { id: 'blue', label: 'BLUE\nEDITION', big: false, icon: 'kepler', url: 'https://open.spotify.com/album/7hlWoDUmNRHGzDzBDhWkHs', desc: 'Dritte EP der Trilogie (2023). Abschluss eines zusammenhängenden künstlerischen Dreiteilers.' },
+      { id: 'update', label: 'Update', big: false, icon: 'kepler', url: 'https://open.spotify.com/album/5Qgod9Pko3VdtjTg3jjjQF', desc: 'Neuestes Album — die nächste Phase von Kepler. Evolution des Sounds nach der Trilogie.' },
+      { id: 'suno', label: 'Suno', big: false, icon: 'suno', url: 'https://suno.com', desc: 'KI-Musikgenerierung — komplette Songs aus Text-Prompts. Wird für Klangexperimente und kreative Exploration eingesetzt.' },
+      { id: 'midjourney', label: 'Midjourney', big: false, icon: 'midjourney', url: 'https://www.midjourney.com', desc: 'KI-Bildgenerierung für Cover-Art, Konzeptbilder und visuelle Exploration. Starker ästhetischer Fokus.' },
+      { id: 'vr', label: 'VR-\nKonzerte', big: false, icon: 'vp', desc: 'Live-Auftritte im Metaverse — Keplers erstes VR-Konzert fand 2022 statt. Digitale Bühnen als neue Performance-Räume.' },
+      { id: 'claude', label: 'Claude', big: false, icon: 'claude', url: 'https://claude.ai', desc: 'KI-Assistent für kreatives Schreiben, Textarbeit und Website-Entwicklung.' },
+      { id: 'comfyui', label: 'ComfyUI', big: false, icon: 'comfyui', url: 'https://www.comfy.org', desc: 'Node-basierter Workflow für Bildgenerierung. Visuelle Programmierung für komplexe kreative Pipelines.' },
+      { id: 'teleskop', label: 'Kepler-\nTeleskop', big: false, icon: 'procgen', desc: 'Namensgeber: Das NASA-Weltraumteleskop, das bis 2018 nach habitablen Exoplaneten suchte. Symbol dafür, der Menschheit ihre Gewöhnlichkeit zu zeigen.' },
+      { id: 'clipstar', label: 'Clipstar', big: false, icon: 'kepler', url: 'https://open.spotify.com/album/0yBC2CDzMgpWyU3Xt8sWqs', desc: 'Erste Single (2021) zusammen mit IUS. Der Startpunkt von Keplers musikalischer Reise.' },
     ];
 
     const cx = 0.5, cy = 0.5;
@@ -82,20 +82,19 @@ export class InterestGraph {
     });
 
     const connections = [
-      ['comfyui', 'ki'], ['comfyui', 'midjourney'],
-      ['suno', 'ki'], ['suno', 'musik'],
-      ['midjourney', 'ki'],
-      ['ar', 'ki'], ['ar', 'vp'],
-      ['kepler', 'ki'], ['kepler', 'musik'],
-      ['worldlabs', 'ki'], ['worldlabs', 'procgen'],
-      ['claude', 'ki'],
-      ['cursor', 'ki'],
-      ['gemini', 'ki'],
-      ['musik', 'ki'],
-      ['voxel', 'procgen'], ['voxel', 'unreal'],
-      ['unreal', 'vp'], ['unreal', 'procgen'],
-      ['houdini', 'procgen'], ['houdini', 'vp'],
-      ['ki', 'vp'],
+      ['red', 'deutschrap'], ['yellow', 'deutschrap'], ['blue', 'deutschrap'],
+      ['update', 'deutschrap'], ['update', 'produktion'],
+      ['clipstar', 'deutschrap'],
+      ['suno', 'ki'], ['suno', 'produktion'],
+      ['midjourney', 'ki'], ['midjourney', 'visuals'],
+      ['vr', 'visuals'],
+      ['claude', 'ki'], ['claude', 'songwriting'],
+      ['comfyui', 'ki'], ['comfyui', 'visuals'],
+      ['teleskop', 'deutschrap'],
+      ['songwriting', 'deutschrap'], ['songwriting', 'produktion'],
+      ['ki', 'produktion'], ['ki', 'visuals'],
+      ['visuals', 'deutschrap'],
+      ['red', 'songwriting'], ['clipstar', 'produktion'],
     ];
 
     const nodeMap = new Map(this.nodes.map(n => [n.id, n]));
@@ -465,7 +464,7 @@ export class InterestGraph {
     this.detail.innerHTML =
       `<div class="interest-detail-header">` +
         `<strong>${title}</strong>` +
-        `<span class="interest-detail-badge">${node.big ? 'Kernbereich' : 'Tool'}</span>` +
+        `<span class="interest-detail-badge">${node.big ? 'Kernbereich' : 'Release / Tool'}</span>` +
       `</div>` +
       `<p>${node.desc}</p>` +
       link;

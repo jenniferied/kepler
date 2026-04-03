@@ -213,7 +213,7 @@ export class EntryRenderer {
     if (audioContainers.length === 0) return;
 
     // Get app instance for eventBus
-    const app = window.everythingMachineApp;
+    const app = window.keplerApp;
 
     audioContainers.forEach((container, index) => {
       // Parse tracks from data attribute

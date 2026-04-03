@@ -93,7 +93,8 @@ export class DropdownController {
   open() {
     this.dropdown.classList.add('show');
     this.isOpen = true;
-    
+    this.toggleButton.setAttribute('aria-expanded', 'true');
+
     // Emit event for mutual exclusion
     this.eventBus.emit('dropdown:toggled', { name: this.name });
   }
@@ -104,6 +105,7 @@ export class DropdownController {
   close() {
     this.dropdown.classList.remove('show');
     this.isOpen = false;
+    this.toggleButton.setAttribute('aria-expanded', 'false');
   }
 
   /**

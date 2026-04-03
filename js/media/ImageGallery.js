@@ -421,6 +421,12 @@ export class ImageGallery {
       closeBtn.addEventListener('click', () => this.closeGallery());
     }
     
+    // Stop propagation on container so overlay click-to-close works correctly
+    const container = overlay ? overlay.querySelector('.image-lightbox-container') : null;
+    if (container) {
+      container.addEventListener('click', (e) => e.stopPropagation());
+    }
+
     if (overlay) {
       overlay.addEventListener('click', (e) => {
         // Only close if clicking directly on overlay
