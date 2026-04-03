@@ -44,38 +44,14 @@ export class GridLayoutOptimizer {
     gridElement.style.gridTemplateColumns = `repeat(${optimalColumns}, minmax(0, 1fr))`;
     gridElement.style.gridAutoFlow = 'row';
     
-    // Get grid parameters
-    const styles = window.getComputedStyle(gridElement);
-    const rowGap = parseFloat(styles.rowGap) || 0;
-    const rowHeight = parseFloat(styles.gridAutoRows) || 0.2 * 16; // Default 0.2rem
-    
-    if (rowHeight <= 0 || rowGap < 0) {
-      console.warn('[GridLayoutOptimizer] Invalid grid parameters');
-      return;
-    }
-    
-    const totalRowSize = rowHeight + rowGap;
-    
-    // Incremental update (only target bubble)
-    if (targetBubble && targetBubble.classList.contains('content-bubble')) {
-      const bubbleHeight = targetBubble.offsetHeight;
-      const span = Math.max(1, Math.ceil((bubbleHeight + rowGap) / totalRowSize) + 2);
-      targetBubble.style.gridRowEnd = `span ${span}`;
-      
-      // Force reflow
-      void gridElement.offsetHeight;
-      return;
-    }
-    
-    // Full recalculation
-    bubbles.forEach((bubble) => {
-      const bubbleHeight = bubble.offsetHeight;
-      const span = Math.max(1, Math.ceil((bubbleHeight + rowGap) / totalRowSize) + 2);
-      bubble.style.gridRowEnd = `span ${span}`;
+    // Clear any previously set row spans (legacy masonry approach)
+    const bubblesArray = targetBubble
+      ? [targetBubble].filter(b => b.classList.contains('content-bubble'))
+      : Array.from(bubbles);
+
+    bubblesArray.forEach((bubble) => {
+      bubble.style.gridRowEnd = '';
     });
-    
-    // Force reflow
-    void gridElement.offsetHeight;
   }
 
   /**
