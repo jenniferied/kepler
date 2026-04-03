@@ -623,12 +623,7 @@ main.container {
 /* Legal pages (Impressum, Datenschutz) */
 
 /* Rechtliches: center vertically, fit viewport */
-#page-rechtliches.page-content {
-    display: none;
-    min-height: auto;
-}
-
-#page-rechtliches.active {
+#page-rechtliches.page-content.active {
     display: flex;
     align-items: center;
     justify-content: center;
