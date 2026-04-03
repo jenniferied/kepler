@@ -622,13 +622,13 @@ main.container {
 
 /* Legal pages (Impressum, Datenschutz) */
 
-/* Rechtliches: center vertically, fit viewport */
+/* Rechtliches: fill entire viewport */
 #page-rechtliches.page-content.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 60px);
-    padding: 1.5rem;
+    display: block;
+    height: calc(100vh - 60px);
+    min-height: auto;
+    padding: 0;
+    overflow: hidden;
 }
 
 #page-rechtliches h2,
