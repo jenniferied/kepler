@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerkl&auml;rung -- Pretext Trial</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2.5rem 1.5rem 1rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .header h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: #e0e0e0;
+            margin-bottom: 0.75rem;
+        }
+
+        .header .subtitle {
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 0.05em;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            cursor: default;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem 1.5rem 2rem;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer a {
+            font-size: 0.6rem;
+            color: #444;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .footer a:hover {
+            color: #888;
+        }
+
+        /* Loading state */
+        #loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Datenschutzerkl&auml;rung</h1>
+        <div class="subtitle">Drag the sphere to see Pretext text reflow</div>
+    </div>
+
+    <div id="canvas-container">
+        <div id="loading">Loading Pretext...</div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="footer">
+        <a href="index.html">&larr; Back to Kepler</a>
+    </div>
+
+    <script type="module">
+        import { prepareWithSegments, layoutNextLine } from 'https://esm.sh/@chenglou/pretext@0.0.4'
+
+        // --- Datenschutz text (German privacy policy, from keplermusik.de) ---
+        const DATENSCHUTZ_TEXT = `Datenschutzerklärung. 1. Datenschutz auf einen Blick. Allgemeine Hinweise: Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung. Datenerfassung auf dieser Website: Wer ist verantwortlich für die Datenerfassung auf dieser Website? Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur verantwortlichen Stelle" in dieser Datenschutzerklärung entnehmen. Wie erfassen wir Ihre Daten? Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten. Wofür nutzen wir Ihre Daten? Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden. Welche Rechte haben Sie bezüglich Ihrer Daten? Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden. 2. Hosting. Wir hosten die Inhalte unserer Website bei folgendem Anbieter: netcup. Anbieter ist die netcup GmbH, Daimlerstraße 25, 76185 Karlsruhe (nachfolgend netcup). Details entnehmen Sie der Datenschutzerklärung von netcup unter: https://www.netcup.de/kontakt/datenschutzerklaerung.php. Die Verwendung von netcup erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung unserer Website. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers umfasst. Die Einwilligung ist jederzeit widerrufbar. Auftragsverarbeitung: Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung der DSGVO verarbeitet. 3. Allgemeine Hinweise und Pflichtinformationen. Datenschutz: Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung. Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht. Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich. Hinweis zur verantwortlichen Stelle: Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist: Heinz Just, Rosengarten 5, 32657 Lemgo. Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet. Speicherdauer: Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben. Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website: Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr Endgerät eingewilligt haben, erfolgt die Datenverarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar.`
+
+        const FONT = '15px "IBM Plex Mono", monospace'
+        const LINE_HEIGHT = 24
+        const TEXT_COLOR = '#c8c8c8'
+        const PADDING = 40
+        const SPHERE_RADIUS = 60
+        const SPHERE_PADDING = 14 // extra space around sphere for text clearance
+        const MIN_SLOT_WIDTH = 30 // minimum width to attempt laying out text
+
+        const canvas = document.getElementById('canvas')
+        const container = document.getElementById('canvas-container')
+        const loading = document.getElementById('loading')
+
+        let dpr = window.devicePixelRatio || 1
+        let canvasWidth = 0
+        let canvasHeight = 0
+
+        // Sphere state
+        let sphereX = 300
+        let sphereY = 400
+        let dragging = false
+        let dragOffsetX = 0
+        let dragOffsetY = 0
+
+        // Prepare text once fonts are loaded
+        await document.fonts.ready
+        const prepared = prepareWithSegments(DATENSCHUTZ_TEXT, FONT)
+        loading.style.display = 'none'
+        canvas.style.display = 'block'
+
+        // --- Circle exclusion for a horizontal band ---
+        // Returns the interval [left, right] where the circle blocks text,
+        // or null if the circle doesn't intersect this band.
+        function getCircleExclusion(cx, cy, cr, bandTop, bandBot) {
+            // Circle doesn't overlap this band at all
+            if (bandTop >= cy + cr || bandBot <= cy - cr) return null
+            // Find the minimum vertical distance from circle center to the band
+            let minDy
+            if (cy >= bandTop && cy <= bandBot) {
+                minDy = 0
+            } else if (cy < bandTop) {
+                minDy = bandTop - cy
+            } else {
+                minDy = cy - bandBot
+            }
+            if (minDy >= cr) return null
+            const dx = Math.sqrt(cr * cr - minDy * minDy)
+            return { left: cx - dx, right: cx + dx }
+        }
+
+        // --- Carve available line slots from a base interval minus blocked intervals ---
+        function carveSlots(baseLeft, baseRight, blocked) {
+            let slots = [{ left: baseLeft, right: baseRight }]
+            for (const interval of blocked) {
+                const next = []
+                for (const slot of slots) {
+                    if (interval.right <= slot.left || interval.left >= slot.right) {
+                        next.push(slot)
+                        continue
+                    }
+                    if (interval.left > slot.left) {
+                        next.push({ left: slot.left, right: interval.left })
+                    }
+                    if (interval.right < slot.right) {
+                        next.push({ left: interval.right, right: slot.right })
+                    }
+                }
+                slots = next
+            }
+            return slots.filter(s => (s.right - s.left) >= MIN_SLOT_WIDTH)
+        }
+
+        // --- Draw the sphere with a glow ---
+        function drawSphere(ctx, x, y, r) {
+            // Outer glow
+            const glowGradient = ctx.createRadialGradient(x, y, r * 0.5, x, y, r * 2.2)
+            glowGradient.addColorStop(0, 'rgba(80, 120, 200, 0.15)')
+            glowGradient.addColorStop(0.5, 'rgba(60, 100, 180, 0.06)')
+            glowGradient.addColorStop(1, 'rgba(40, 80, 160, 0)')
+            ctx.beginPath()
+            ctx.arc(x, y, r * 2.2, 0, Math.PI * 2)
+            ctx.fillStyle = glowGradient
+            ctx.fill()
+
+            // Main sphere body
+            const bodyGradient = ctx.createRadialGradient(
+                x - r * 0.3, y - r * 0.3, r * 0.1,
+                x, y, r
+            )
+            bodyGradient.addColorStop(0, '#4a7aaa')
+            bodyGradient.addColorStop(0.4, '#2a4a6a')
+            bodyGradient.addColorStop(0.8, '#1a2a3a')
+            bodyGradient.addColorStop(1, '#0d1520')
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+            ctx.fillStyle = bodyGradient
+            ctx.fill()
+
+            // Subtle ring / atmosphere
+            ctx.beginPath()
+            ctx.arc(x, y, r + 1, 0, Math.PI * 2)
+            ctx.strokeStyle = 'rgba(80, 140, 220, 0.3)'
+            ctx.lineWidth = 1.5
+            ctx.stroke()
+
+            // Specular highlight
+            const specGradient = ctx.createRadialGradient(
+                x - r * 0.25, y - r * 0.3, 0,
+                x - r * 0.25, y - r * 0.3, r * 0.5
+            )
+            specGradient.addColorStop(0, 'rgba(180, 210, 255, 0.35)')
+            specGradient.addColorStop(1, 'rgba(180, 210, 255, 0)')
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+            ctx.fillStyle = specGradient
+            ctx.fill()
+        }
+
+        // --- Main render ---
+        function render() {
+            const ctx = canvas.getContext('2d')
+            const containerRect = container.getBoundingClientRect()
+            const w = containerRect.width
+            // Compute height based on text layout (we'll do a dry run)
+            // For now use viewport height minus header/footer
+            const viewH = Math.max(600, window.innerHeight - 140)
+
+            dpr = window.devicePixelRatio || 1
+
+            if (canvasWidth !== w || canvasHeight !== viewH) {
+                canvasWidth = w
+                canvasHeight = viewH
+                canvas.width = Math.round(w * dpr)
+                canvas.height = Math.round(viewH * dpr)
+                canvas.style.width = w + 'px'
+                canvas.style.height = viewH + 'px'
+            }
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+            ctx.clearRect(0, 0, w, viewH)
+
+            const textLeft = PADDING
+            const textRight = w - PADDING
+            const totalWidth = textRight - textLeft
+
+            if (totalWidth < 60) return
+
+            const effectiveR = SPHERE_RADIUS + SPHERE_PADDING
+
+            // Layout text line by line, flowing around the sphere
+            ctx.font = FONT
+            ctx.fillStyle = TEXT_COLOR
+            ctx.textBaseline = 'top'
+
+            let cursor = { segmentIndex: 0, graphemeIndex: 0 }
+            let y = PADDING
+
+            while (y + LINE_HEIGHT <= viewH - 10) {
+                const bandTop = y
+                const bandBot = y + LINE_HEIGHT
+
+                // Check if sphere intersects this line band
+                const exclusion = getCircleExclusion(sphereX, sphereY, effectiveR, bandTop, bandBot)
+
+                if (exclusion === null) {
+                    // No obstacle -- full width line
+                    const line = layoutNextLine(prepared, cursor, totalWidth)
+                    if (line === null) break
+                    ctx.fillStyle = TEXT_COLOR
+                    ctx.fillText(line.text, textLeft, y)
+                    cursor = line.end
+                } else {
+                    // Carve the line into slots around the sphere
+                    const slots = carveSlots(textLeft, textRight, [exclusion])
+
+                    if (slots.length === 0) {
+                        // Line fully blocked by sphere, skip it
+                        y += LINE_HEIGHT
+                        continue
+                    }
+
+                    // Lay out text into each slot (left-to-right)
+                    // Sort slots by x position
+                    slots.sort((a, b) => a.left - b.left)
+
+                    for (const slot of slots) {
+                        const slotWidth = slot.right - slot.left
+                        const line = layoutNextLine(prepared, cursor, slotWidth)
+                        if (line === null) break
+                        ctx.fillStyle = TEXT_COLOR
+                        ctx.fillText(line.text, slot.left, y)
+                        cursor = line.end
+                    }
+                }
+
+                y += LINE_HEIGHT
+            }
+
+            // Draw the sphere on top
+            drawSphere(ctx, sphereX, sphereY, SPHERE_RADIUS)
+        }
+
+        // --- Pointer events ---
+        function getCanvasPos(e) {
+            const rect = canvas.getBoundingClientRect()
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top,
+            }
+        }
+
+        function isInSphere(px, py) {
+            const dx = px - sphereX
+            const dy = py - sphereY
+            return dx * dx + dy * dy <= SPHERE_RADIUS * SPHERE_RADIUS
+        }
+
+        function onPointerDown(e) {
+            const pos = getCanvasPos(e)
+            if (isInSphere(pos.x, pos.y)) {
+                dragging = true
+                dragOffsetX = sphereX - pos.x
+                dragOffsetY = sphereY - pos.y
+                canvas.style.cursor = 'grabbing'
+                e.preventDefault()
+            }
+        }
+
+        function onPointerMove(e) {
+            const pos = getCanvasPos(e)
+            if (dragging) {
+                sphereX = pos.x + dragOffsetX
+                sphereY = pos.y + dragOffsetY
+                requestAnimationFrame(render)
+                e.preventDefault()
+            } else {
+                canvas.style.cursor = isInSphere(pos.x, pos.y) ? 'grab' : 'default'
+            }
+        }
+
+        function onPointerUp() {
+            if (dragging) {
+                dragging = false
+                canvas.style.cursor = 'grab'
+            }
+        }
+
+        canvas.addEventListener('mousedown', onPointerDown)
+        window.addEventListener('mousemove', onPointerMove)
+        window.addEventListener('mouseup', onPointerUp)
+
+        canvas.addEventListener('touchstart', onPointerDown, { passive: false })
+        window.addEventListener('touchmove', onPointerMove, { passive: false })
+        window.addEventListener('touchend', onPointerUp)
+
+        // Resize handling
+        window.addEventListener('resize', () => requestAnimationFrame(render))
+
+        // Initial position: center-ish
+        function initSpherePosition() {
+            const rect = container.getBoundingClientRect()
+            sphereX = rect.width * 0.55
+            sphereY = 320
+        }
+
+        initSpherePosition()
+        render()
+    </script>
+</body>
+</html>

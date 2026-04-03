@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block AI crawlers (preserves content exclusivity)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://keplermusik.de/sitemap.xml

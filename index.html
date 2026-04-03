@@ -3,40 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artistic Research: Everything Machine (Kepler)</title>
-    
+    <title>Kepler — Elektronische Musik & Visuals | keplermusik.de</title>
+
+    <!-- SEO Meta -->
+    <meta name="description" content="Kepler — Elektronische Musik, Visuals und digitale Identität aus Deutschland. Höre Tracks auf Spotify und SoundCloud.">
+    <meta name="keywords" content="Kepler Musik, Kepler electronic music, Kepler artist, Kepler Germany, elektronische Musik, keplermusik">
+    <link rel="canonical" href="https://keplermusik.de/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Kepler — Music & Visuals">
+    <meta property="og:description" content="Elektronische Musik und Visuals aus Deutschland.">
+    <meta property="og:type" content="music.musician">
+    <meta property="og:url" content="https://keplermusik.de/">
+    <meta property="og:image" content="https://keplermusik.de/assets/images/scraped/kepler-logo-white.png">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Kepler">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kepler — Music & Visuals">
+    <meta name="twitter:description" content="Elektronische Musik und Visuals aus Deutschland.">
+    <meta name="twitter:image" content="https://keplermusik.de/assets/images/scraped/kepler-logo-white.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/scraped/kepler-logo-white.png">
+
     <!-- Tailwind CSS (pre-built) -->
     <link rel="stylesheet" href="dist/tailwind.css">
 
-    <!-- Externe CSS-Datei -->
-    <link rel="stylesheet" href="dist/style.css">
-    
+    <!-- Externe CSS-Datei (minified) -->
+    <link rel="stylesheet" href="dist/style.min.css">
+
     <!-- Google Font "IBM Plex Mono" -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    
+
     <!-- Google Font "Press Start 2P" (Pixel Font) -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Structured Data: MusicGroup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicGroup",
+      "name": "Kepler",
+      "alternateName": "Kepler Musik",
+      "url": "https://keplermusik.de",
+      "genre": ["Electronic", "German Hip-Hop"],
+      "sameAs": [
+        "https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH",
+        "https://music.apple.com/de/artist/kepler/1572525555",
+        "https://music.amazon.de/artists/B09KT6YNJG/kepler",
+        "https://soundcloud.com/kepler_mp3",
+        "https://www.youtube.com/channel/UC1DO_lojKC8NQz6jJzXhchA",
+        "https://www.instagram.com/kepler.mp3/",
+        "https://www.tiktok.com/@kepler.mp3",
+        "https://www.deezer.com/artist/162529637"
+      ],
+      "image": "https://keplermusik.de/assets/images/scraped/kepler-logo-white.png",
+      "description": "Kepler ist ein elektronischer Musikact aus Deutschland."
+    }
+    </script>
 </head>
 <body class="antialiased">
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- SEO: Visually hidden h1 for search engines -->
+    <h1 class="visually-hidden">Kepler — Elektronische Musik, Visuals & Digitale Identität</h1>
 
     <!-- Header & Navigation (Nach Vorbild researchcatalogue.net) -->
     <header class="top-bar">
         <nav class="flex justify-between items-center w-full">
-            <!-- Linke Seite: Navigation -->
+            <!-- Linke Seite: Logo -->
             <div class="flex items-center">
-                <!-- Dropdown -->
-                <div class="relative">
-                    <button id="contents-toggle" class="nav-link dropdown-toggle active" aria-haspopup="true">Inhalt</button>
-                    <div id="dropdown-menu" class="dropdown-menu" role="menu">
-                        <button class="dropdown-item active" data-page="overview" role="menuitem">Projektübersicht</button>
-                        <button class="dropdown-item" data-page="logbook" role="menuitem">Prozess-Logbuch</button>
-                        <button class="dropdown-item" data-page="about" role="menuitem">Über mich</button>
-                        <button class="dropdown-item" data-page="images" role="menuitem">Bild-Generationen</button>
-                        <button class="dropdown-item" data-page="generations" role="menuitem">Video-Generationen</button>
-                    </div>
-                </div>
+                <img src="assets/images/scraped/kepler-logo-white.png" alt="Kepler" class="header-logo" style="cursor:pointer;" data-page="overview" id="header-logo">
 
                 <!-- Mini-Player (Neu) -->
                 <div class="mini-player-container hidden md:flex"> <!-- Player auf kleinen Screens ausblenden -->
@@ -88,23 +130,32 @@
                 </div>
             </div>
             
-            <!-- Rechte Seite: Titel -->
-            <div class="text-right text-gray-400">
-                <span>J. Meier - Everything Machine (Kepler) - 2026</span>
+            <!-- Rechte Seite: Dropdown -->
+            <div class="relative">
+                <button id="contents-toggle" class="nav-link dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Inhalt</button>
+                <div id="dropdown-menu" class="dropdown-menu" role="menu" style="right:0;left:auto;">
+                    <button class="dropdown-item active" data-page="overview" role="menuitem">Projektübersicht</button>
+                    <button class="dropdown-item" data-page="logbook" role="menuitem">Prozess-Logbuch</button>
+                    <button class="dropdown-item" data-page="about" role="menuitem">Über Kepler</button>
+                    <button class="dropdown-item" data-page="links" role="menuitem">Links</button>
+                    <button class="dropdown-item" data-page="rechtliches" role="menuitem">Rechtliches</button>
+                </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content Area (Lädt die "Seiten") -->
-    <main class="container mx-auto">
+    <main id="main-content" class="container mx-auto">
 
         <!-- ===== SEITE 1: PROJEKTÜBERSICHT (Dein Exposé) ===== -->
-        <section id="page-overview" class="page-content">
-            <div class="space-y-12 max-w-4xl mx-auto" style="padding-top: 2rem;">
+        <section id="page-overview" class="page-content" style="position: relative; overflow: visible;">
+            <!-- Starfield background canvas -->
+            <canvas id="starfield-canvas" style="position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; z-index: 0; pointer-events: none;"></canvas>
+            <div class="space-y-12 max-w-4xl mx-auto" style="padding-top: 2rem; position: relative; z-index: 1;">
 
                 <!-- Abstract -->
                 <div>
-                    <h3>I / O (Abstract)</h3>
+                    <h2>I / O (Abstract)</h2>
                     <p class="italic">
                         Künstler verfügen über eine Fülle von "Inputs" – nicht nur Bilder, sondern auch Musik, Texte und eine schwer fassbare Atmosphäre. Generative KI bietet neue "Output"-Werkzeuge, doch es fehlt an etablierten Prozessen, diese Inputs zur Erweiterung einer bestehenden digitalen Identität zu nutzen. Diese Arbeit untersucht dies in einem explorativen Artistic Research-Prozess am Fallbeispiel des Alter Egos "Kepler". In sechs Experimenten – von Bildgenerierung über Musikproduktion bis zur automatisierten Video-Pipeline – wird untersucht, wie sich der kreative Workflow durch KI-Werkzeuge verändert: schneller, aber weniger kontrollierbar; produktiver, aber mit verschobener Autorschaft.
                     </p>
@@ -118,8 +169,14 @@
 
                 <!-- Keplers bestehende Arbeiten -->
                 <div class="space-y-4">
-                    <img src="assets/images/kepler-squatting.png?v=20260112" alt="Kepler Pixel-Art" class="floating-element rounded-sm w-full max-w-2xl h-auto mx-auto" data-floating>
-                    <img src="assets/images/album-covers-row.png?v=20260112" alt="Album Cover Übersicht" class="rounded-sm w-full h-auto">
+                    <picture>
+                        <source srcset="assets/images/optimized/kepler-squatting.webp" type="image/webp">
+                        <img src="assets/images/kepler-squatting.png?v=20260112" alt="Kepler Pixel-Art" class="floating-element rounded-sm w-full max-w-2xl h-auto mx-auto" data-floating>
+                    </picture>
+                    <picture>
+                        <source srcset="assets/images/optimized/album-covers-row.webp" type="image/webp">
+                        <img src="assets/images/album-covers-row.png?v=20260112" alt="Album Cover Übersicht" class="rounded-sm w-full h-auto" loading="lazy">
+                    </picture>
                     <p class="text-sm text-gray-500 italic text-center mt-4">
                         Screenshots von seinem
                         <a href="https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH" target="_blank" rel="noopener" class="text-green-400 hover:text-green-300 inline-flex items-center gap-1">
@@ -131,21 +188,36 @@
 
                 <!-- Einleitung -->
                 <div>
-                    <h3>Einleitung</h3>
+                    <h2>Einleitung</h2>
                     <div class="space-y-4">
                         <p>Die Entwicklung generativer KI eröffnet neue Möglichkeiten in der künstlerischen Praxis. Für Künstler, die diese Werkzeuge in ihre bestehenden Workflows integrieren möchten, bedeutet dies eine Phase des Experimentierens, da "Best Practices" oft noch fehlen.</p>
                         <p>Dieses Artistic Research-Projekt knüpft an eine bestehende künstlerische Kollaboration an: die digitale Identität "Kepler" des Musikers Gavin Just. Aufbauend auf einer gemeinsamen Praxis stellt sich eine Herausforderung: Die visuelle Welt von Kepler entwickelt sich oft langsamer als die musikalische oder performative Ebene.</p>
 
                         <!-- Existierende Arbeiten -->
                         <div class="space-y-4">
-                            <div class="grid grid-cols-3 gap-4">
-                                <img src="assets/images/basketball-scene.png?v=20260112" alt="Basketball Szene" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating>
-                                <img src="assets/images/kepler-voxel.png?v=20260112" alt="Kepler im Wasser" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating>
-                                <img src="assets/images/artefakt-1.png?v=20260112" alt="Disco-Herz" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <picture>
+                                    <source srcset="assets/images/optimized/basketball-scene.webp" type="image/webp">
+                                    <img src="assets/images/basketball-scene.png?v=20260112" alt="Basketball Szene" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating loading="lazy">
+                                </picture>
+                                <picture>
+                                    <source srcset="assets/images/optimized/kepler-voxel.webp" type="image/webp">
+                                    <img src="assets/images/kepler-voxel.png?v=20260112" alt="Kepler im Wasser" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating loading="lazy">
+                                </picture>
+                                <picture>
+                                    <source srcset="assets/images/optimized/artefakt-1.webp" type="image/webp">
+                                    <img src="assets/images/artefakt-1.png?v=20260112" alt="Disco-Herz" class="floating-element rounded-sm object-cover w-full aspect-square" data-floating loading="lazy">
+                                </picture>
                             </div>
-                            <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
-                                <img src="assets/images/artefakt-2.png?v=20260112" alt="Kepler auf dem Mond" class="floating-element rounded-sm object-cover w-full h-auto" data-floating>
-                                <img src="assets/images/inspiration.png?v=20260112" alt="Kepler am Schreibtisch" class="floating-element rounded-sm object-cover w-full h-auto" data-floating>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+                                <picture>
+                                    <source srcset="assets/images/optimized/artefakt-2.webp" type="image/webp">
+                                    <img src="assets/images/artefakt-2.png?v=20260112" alt="Kepler auf dem Mond" class="floating-element rounded-sm object-cover w-full h-auto" data-floating loading="lazy">
+                                </picture>
+                                <picture>
+                                    <source srcset="assets/images/optimized/inspiration.webp" type="image/webp">
+                                    <img src="assets/images/inspiration.png?v=20260112" alt="Kepler am Schreibtisch" class="floating-element rounded-sm object-cover w-full h-auto" data-floating loading="lazy">
+                                </picture>
                             </div>
                             <p class="text-sm text-gray-500 italic text-center">Bereits existierende Arbeiten, die ich in Unreal Engine erstellt habe.</p>
                         </div>
@@ -157,7 +229,7 @@
                 <!-- Forschungsfragen & Methodologie -->
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3>Forschungsfragen</h3>
+                        <h2>Forschungsfragen</h2>
                         <p class="mb-4"><em>Wie verändert der Einsatz multimodaler KI-Systeme (Text, Bild, Audio) den kreativen Prozess bei der Entwicklung einer digitalen Künstleridentität?</em></p>
                         <ol class="list-decimal list-inside space-y-3">
                             <li><strong>Workflow:</strong> Welche neuen Arbeitsschritte entstehen? Welche fallen weg?</li>
@@ -168,7 +240,7 @@
                         </ol>
                     </div>
                     <div>
-                        <h3>Methodologie</h3>
+                        <h2>Methodologie</h2>
                         <p class="mb-4">Diese Arbeit folgt dem Paradigma des Practice-Led Research: Die künstlerische Praxis ist Erkenntnisquelle, Wissen entsteht aus dem Prozess selbst. Systematische Experimente mit verschiedenen KI-Tools werden in iterativen Zyklen durchgeführt: von Bildgenerierung über Musikproduktion bis zur Webentwicklung.</p>
                         <p>Begleitend dokumentiert ein Journal den kreativen Prozess (Intention, Prozess, Ergebnis, Reflexion). Jeder Eintrag wird anschließend einer KI-gestützten strukturierten Reflexion unterzogen, orientiert an fünf Subfragen: Workflow, Autorschaft, Iteration, Scheitern und Ästhetik.</p>
                     </div>
@@ -176,9 +248,15 @@
 
                 <!-- Fotografien des realen Kepler -->
                 <div class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto">
-                        <img src="assets/images/white-suit.png?v=20260112" alt="Kepler im weißen Anzug" class="floating-element rounded-sm object-cover w-full aspect-[3/4]" data-floating>
-                        <img src="assets/images/broken-glass.png?v=20260112" alt="Kepler mit zerbrochenem Glas" class="floating-element rounded-sm object-cover w-full aspect-[3/4]" data-floating>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+                        <picture>
+                            <source srcset="assets/images/optimized/white-suit.webp" type="image/webp">
+                            <img src="assets/images/white-suit.png?v=20260112" alt="Kepler im weißen Anzug" class="floating-element rounded-sm object-cover w-full aspect-[3/4]" data-floating loading="lazy">
+                        </picture>
+                        <picture>
+                            <source srcset="assets/images/optimized/broken-glass.webp" type="image/webp">
+                            <img src="assets/images/broken-glass.png?v=20260112" alt="Kepler mit zerbrochenem Glas" class="floating-element rounded-sm object-cover w-full aspect-[3/4]" data-floating loading="lazy">
+                        </picture>
                     </div>
                     <p class="text-sm text-gray-500 italic text-center">Fotografien des realen Kepler in Kostüm und Szene.</p>
                 </div>
@@ -208,30 +286,30 @@
         </section>
 
 
-        <!-- ===== SEITE 3: ÜBER MICH (About Page) ===== -->
+        <!-- ===== SEITE 3: ÜBER KEPLER (About Page) ===== -->
         <section id="page-about" class="page-content">
             <div class="about-layout max-w-4xl mx-auto">
                 <!-- Profile Header -->
                 <div class="about-header">
                     <div class="about-profile-grid">
                         <div class="about-image-container">
-                            <img src="assets/icons/user.png" alt="Jennifer Meier" class="about-profile-image">
+                            <img src="assets/images/scraped/kepler-logo-white.png" alt="Kepler" class="about-profile-image" style="filter: none; background: transparent;">
                         </div>
                         <div class="about-info">
-                            <h1 class="about-name">Jennifer Meier</h1>
-                            <p class="about-role">Master Student + Research Assistant</p>
-                            <p class="about-institution">Technische Hochschule OWL</p>
-                            <a href="mailto:m.jennifer@outlook.com" class="about-email">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="inline mr-2">
-                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-                                </svg>
-                                m.jennifer@outlook.com
-                            </a>
+                            <h1 class="about-name">Kepler</h1>
+                            <p class="about-role">Musiker / Produzent</p>
+                            <p class="about-institution">Lemgo, Deutschland</p>
+                            <div style="display:flex;gap:0.75rem;margin-top:0.5rem;flex-wrap:wrap;">
+                                <a href="https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH" target="_blank" rel="noopener" class="about-email">Spotify</a>
+                                <a href="https://www.instagram.com/kepler.mp3/" target="_blank" rel="noopener" class="about-email">Instagram</a>
+                                <a href="https://www.tiktok.com/@kepler.mp3" target="_blank" rel="noopener" class="about-email">TikTok</a>
+                                <a href="https://keplermusik.de" target="_blank" rel="noopener" class="about-email">keplermusik.de</a>
+                            </div>
                         </div>
                     </div>
                     <!-- Speech Bubble -->
                     <div class="about-speech-bubble">
-                        <p>Hi, mein Name ist Jennifer. Ich habe diese Website zusammen mit <a href="https://www.anthropic.com" target="_blank" rel="noopener" class="about-cc-link">Claude Code</a> im Rahmen des Faches Artistic Research erstellt. Unten findest du eine kleine Zusammenfassung meiner Interessen.</p>
+                        <p>Kepler, benannt nach dem Weltraumteleskop, das bis 2018 nach bewohnbaren Exoplaneten suchte. <em>„In meinen Augen steht der Name Kepler dafür, der Menschheit ihre Gewöhnlichkeit zu zeigen."</em> — Deutscher Sprachgesang, der neue Maßstäbe setzen will. Releases: RED, YELLOW & BLUE EDITION, plus Singles und das Album <em>Update</em>.</p>
                     </div>
                     <!-- Interest Graph (inline in profile grid) -->
                     <div class="about-graph-col">
@@ -250,36 +328,36 @@
                             <div class="about-interest-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                             </div>
-                            <h3 class="about-interest-title">Unreal Engine</h3>
-                            <p class="about-interest-desc">Echtzeit-Rendering, Virtual Production und interaktive 3D-Erlebnisse für Film und Forschung.</p>
+                            <h3 class="about-interest-title">Songwriting</h3>
+                            <p class="about-interest-desc">Texte und Melodien, die zwischen Alltag und Kosmos pendeln.</p>
+                        </div>
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Deutscher Rap</h3>
+                            <p class="about-interest-desc">Sprachgesang jenseits des Mainstreams — ehrlich, persönlich, anders.</p>
                         </div>
                         <div class="about-interest-card">
                             <div class="about-interest-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                             </div>
-                            <h3 class="about-interest-title">Houdini</h3>
-                            <p class="about-interest-desc">Prozedurale 3D-Workflows, VFX-Simulation und algorithmisches Design für komplexe visuelle Systeme.</p>
-                        </div>
-                        <div class="about-interest-card">
-                            <div class="about-interest-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                            </div>
-                            <h3 class="about-interest-title">Prozedurale Generation</h3>
-                            <p class="about-interest-desc">Algorithmische Erzeugung von Welten, Texturen und Strukturen. Zufall als Gestaltungsprinzip.</p>
-                        </div>
-                        <div class="about-interest-card">
-                            <div class="about-interest-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                            </div>
-                            <h3 class="about-interest-title">Virtual Production</h3>
-                            <p class="about-interest-desc">LED-Wände, Kamera-Tracking und Echtzeit-Compositing. Die Zukunft der Filmproduktion.</p>
+                            <h3 class="about-interest-title">Produktion</h3>
+                            <p class="about-interest-desc">Beats, Mixing und Mastering — vom Homerecording bis zum Release.</p>
                         </div>
                         <div class="about-interest-card">
                             <div class="about-interest-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.57-3.25 3.92L12 22l-.75-12.08A4.001 4.001 0 0 1 12 2z"/><path d="M9 6.5a5.5 5.5 0 0 0-4.5 4A5.5 5.5 0 0 0 9 15"/><path d="M15 6.5a5.5 5.5 0 0 1 4.5 4A5.5 5.5 0 0 1 15 15"/></svg>
                             </div>
-                            <h3 class="about-interest-title">Künstliche Intelligenz</h3>
-                            <p class="about-interest-desc">Multimodale KI-Systeme (Text, Bild, Audio) für kreative Prozesse und Artistic Research.</p>
+                            <h3 class="about-interest-title">KI & Musik</h3>
+                            <p class="about-interest-desc">KI-Tools als kreative Partner im Songwriting und in der Musikproduktion.</p>
+                        </div>
+                        <div class="about-interest-card">
+                            <div class="about-interest-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                            </div>
+                            <h3 class="about-interest-title">Visuals & VR</h3>
+                            <p class="about-interest-desc">Musikvideos, Voxel-Ästhetik und VR-Konzerte im Metaverse.</p>
                         </div>
                     </div>
                 </div>
@@ -287,25 +365,272 @@
             </div>
         </section>
 
-        <!-- ===== SEITE 4: BILD-GENERATIONEN (Experiment 5) ===== -->
-        <section id="page-images" class="page-content">
-            <div class="space-y-12 max-w-5xl mx-auto" style="padding-top: 2rem;">
-                <div>
-                    <h3 class="vg-page-title">Bild-Generationen</h3>
-                    <p>Experiment 5: Automatisierte Bildpipeline — 9 Modelle × 7 Phasen × 3 Szenen (134 Bilder)</p>
+        <!-- ===== SEITE 6: LINKS (Kepler Musik Links) ===== -->
+        <section id="page-links" class="page-content">
+            <div class="links-page-container">
+
+                <!-- Header -->
+                <div class="links-header">
+                    <img src="assets/images/scraped/kepler-logo-white.png" alt="Kepler Musik" class="links-logo">
+                    <div class="links-tagline">Musik & Visuals</div>
                 </div>
-                <div id="image-gallery-container"></div>
+
+                <!-- Music Platforms -->
+                <div class="links-section">
+                    <div class="links-section-label">Music</div>
+
+                    <a href="https://open.spotify.com/artist/42o6wEuAtZaVCte7QZnDtH" target="_blank" rel="noopener" class="link-card" data-platform="spotify">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">Spotify</div>
+                            <div class="sublabel">Kepler</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://music.apple.com/de/artist/kepler/1572525555" target="_blank" rel="noopener" class="link-card" data-platform="apple">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.8.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03c.525 0 1.048-.034 1.57-.1.823-.106 1.597-.35 2.296-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.042-1.8-.6-1.965-1.488-.18-.964.382-1.88 1.305-2.137.263-.073.532-.12.803-.175.373-.074.722-.17.992-.445.2-.205.287-.46.287-.75V9.963c0-.18-.04-.323-.216-.396-.14-.06-.29-.092-.44-.123l-3.636-.78c-.024-.005-.048-.013-.072-.017-.3-.06-.425.037-.453.34v.025l-.003 6.602v.32c0 .442-.06.878-.27 1.278-.3.573-.763.928-1.388 1.098-.34.092-.688.147-1.04.166-.96.05-1.83-.573-2.013-1.467-.192-.94.37-1.878 1.278-2.15.268-.08.543-.13.818-.183.357-.067.7-.156.96-.425.213-.22.305-.492.305-.8V7.563c0-.423.1-.8.436-1.1.218-.196.476-.326.752-.406.312-.092.632-.16.952-.232l2.22-.49 1.237-.27c.197-.042.396-.08.597-.09.265-.015.386.108.39.378v4.76z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">Apple Music</div>
+                            <div class="sublabel">Kepler</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://music.amazon.de/artists/B09KT6YNJG/kepler?marketplaceId=A1PA6795UKMFR9&musicTerritory=DE" target="_blank" rel="noopener" class="link-card" data-platform="amazon">
+                        <div class="icon" style="font-size: 16px; font-weight: 700; letter-spacing: -0.5px;">AM</div>
+                        <div>
+                            <div class="label">Amazon Music</div>
+                            <div class="sublabel">Kepler</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://www.deezer.com/artist/162529637" target="_blank" rel="noopener" class="link-card" data-platform="deezer">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v3.03H24V4.16zM6.27 8.38v3.027h5.19V8.38zm12.54 0v3.027H24V8.38zM6.27 12.594v3.027h5.19v-3.027zm6.27 0v3.027h5.19v-3.027zm6.27 0v3.027H24v-3.027zM0 16.81v3.029h5.19v-3.03zm6.27 0v3.029h5.19v-3.03zm6.27 0v3.029h5.19v-3.03zm6.27 0v3.029H24v-3.03z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">Deezer</div>
+                            <div class="sublabel">Kepler</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://soundcloud.com/kepler_mp3" target="_blank" rel="noopener" class="link-card" data-platform="soundcloud">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M11.56 8.87V17h8.76c1.85 0 2.68-1.36 2.68-2.75s-.87-2.77-2.68-2.77h-.51c-.26-2.56-2.41-4.56-5.03-4.56-1.07 0-2.07.35-2.88.94-.14.1-.14.2-.14.33v.68h-.2zm-1.35.37c-.06-.04-.12-.04-.18 0-.61.42-.95 1.13-1.01 1.9V17h.99V9.34l.2-.1zM8.02 11.2c-.06 0-.1.01-.15.05-.38.34-.61.82-.67 1.35V17h.99v-5.8h-.17zm-1.99.9c-.06-.02-.11 0-.16.04-.35.3-.58.73-.66 1.2V17h.99v-4.87l-.17-.03zm-1.99.65c-.06-.02-.11 0-.17.04a1.84 1.84 0 00-.64 1.15V17h.99v-4.21l-.18-.04zM2.05 13.87c-.06-.03-.12-.01-.17.03A1.75 1.75 0 001 15.13V17h.99v-3.08l.06-.05z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">SoundCloud</div>
+                            <div class="sublabel">@kepler_mp3</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://www.youtube.com/channel/UC1DO_lojKC8NQz6jJzXhchA" target="_blank" rel="noopener" class="link-card" data-platform="youtube">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">YouTube</div>
+                            <div class="sublabel">Kepler</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Social -->
+                <div class="links-section">
+                    <div class="links-section-label">Social</div>
+
+                    <a href="https://www.instagram.com/kepler.mp3/" target="_blank" rel="noopener" class="link-card" data-platform="instagram">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">Instagram</div>
+                            <div class="sublabel">@kepler.mp3</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@kepler.mp3" target="_blank" rel="noopener" class="link-card" data-platform="tiktok">
+                        <div class="icon">
+                            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </div>
+                        <div>
+                            <div class="label">TikTok</div>
+                            <div class="sublabel">@kepler.mp3</div>
+                        </div>
+                        <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Releases -->
+                <div class="links-section">
+                    <div class="links-section-label">Releases</div>
+                    <div class="release-grid">
+                        <div class="release-card">
+                            <img src="assets/images/scraped/cover-liebe-schieben.jpg" alt="Liebe Schieben" loading="lazy">
+                            <div class="release-info">
+                                <div class="release-title">&bdquo;Liebe Schieben&ldquo;</div>
+                                <div class="release-meta">Single &middot; 01.03.2024</div>
+                            </div>
+                        </div>
+                        <div class="release-card">
+                            <img src="assets/images/scraped/cover-fuer-mich.jpg" alt="Fuer mich" loading="lazy">
+                            <div class="release-info">
+                                <div class="release-title">&bdquo;F&uuml;r mich&ldquo;</div>
+                                <div class="release-meta">Single &middot; 26.10.2023</div>
+                            </div>
+                        </div>
+                        <div class="release-card">
+                            <img src="assets/images/scraped/cover-red-edition.jpg" alt="Trilogie Edition Red" loading="lazy">
+                            <div class="release-info">
+                                <div class="release-title">Trilogie: Red Edition</div>
+                                <div class="release-meta">EP</div>
+                            </div>
+                        </div>
+                        <div class="release-card">
+                            <img src="assets/images/scraped/cover-blue-edition.jpg" alt="Trilogie Edition Blue" loading="lazy">
+                            <div class="release-info">
+                                <div class="release-title">Trilogie: Blue Edition</div>
+                                <div class="release-meta">EP</div>
+                            </div>
+                        </div>
+                        <div class="release-card">
+                            <img src="assets/images/scraped/cover-yellow-edition.jpg" alt="Trilogie Edition Yellow" loading="lazy">
+                            <div class="release-info">
+                                <div class="release-title">Trilogie: Yellow Edition</div>
+                                <div class="release-meta">EP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Videos -->
+                <div class="links-section">
+                    <div class="links-section-label">Videos</div>
+
+                    <a href="https://www.youtube.com/watch?v=n0hwcCWZ9B0" target="_blank" rel="noopener" class="video-card">
+                        <div class="thumb">
+                            <img src="https://img.youtube.com/vi/n0hwcCWZ9B0/mqdefault.jpg" alt="STATUS thumbnail" loading="lazy">
+                            <div class="play-icon">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">KEPLER - STATUS (Official Video)</div>
+                            <div class="video-meta">Single &middot; 13.05.2021</div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=2_fmcdFbE48" target="_blank" rel="noopener" class="video-card">
+                        <div class="thumb">
+                            <img src="https://img.youtube.com/vi/2_fmcdFbE48/mqdefault.jpg" alt="CLIPSTAR thumbnail" loading="lazy">
+                            <div class="play-icon">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">KEPLER X IUS - CLIPSTAR (Official Video)</div>
+                            <div class="video-meta">Single &middot; 24.07.2021</div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=UtsJ-zMrcf0" target="_blank" rel="noopener" class="video-card">
+                        <div class="thumb">
+                            <img src="https://img.youtube.com/vi/UtsJ-zMrcf0/mqdefault.jpg" alt="VR Konzert thumbnail" loading="lazy">
+                            <div class="play-icon">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">Erstes VR Live Konzert im Metaverse</div>
+                            <div class="video-meta">VR Konzert &middot; 11.02.2022</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Footer -->
+                <div class="links-footer">
+                    <div class="links-copyright">
+                        Kepler Musik &middot; keplermusik.de
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- ===== SEITE 5: VIDEO-GENERATIONEN (Experiment 6) ===== -->
-        <section id="page-generations" class="page-content">
-            <div class="space-y-12 max-w-5xl mx-auto" style="padding-top: 2rem;">
-                <div>
-                    <h3 class="vg-page-title">Video-Generationen</h3>
-                    <p>Experiment 6: Image-to-Video Modellvergleich — 7 Modelle × 4 Szenen</p>
+        <!-- ===== RECHTLICHES (Impressum + Datenschutz) ===== -->
+        <section id="page-rechtliches" class="page-content">
+            <div class="max-w-3xl mx-auto space-y-6" style="padding-top: 1rem; padding-bottom: 1rem;" data-pretext>
+
+                <!-- IMPRESSUM -->
+                <h2>Impressum</h2>
+                <div class="space-y-4">
+                    <p class="text-sm text-gray-300">Verantwortlich gemäß §5 TMG und §2 DL-InfoV:</p>
+                    <p class="text-sm text-gray-300"><strong>Heinz Just</strong><br>Rosengarten 5<br>32657 Lemgo</p>
                 </div>
-                <div id="video-gallery-container"></div>
+
+                <div class="space-y-3">
+                    <h3>Haftung für Inhalte</h3>
+                    <p class="text-sm text-gray-400">Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. <em>Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich.</em></p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3>Haftung für Links</h3>
+                    <p class="text-sm text-gray-400">Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. <strong>Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</strong> Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3>Urheberrecht</h3>
+                    <p class="text-sm text-gray-400">Die durch die Seitenbetreiber erstellten Inhalte und Werke unterliegen dem <strong>deutschen Urheberrecht</strong>. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. <em>Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</em></p>
+                </div>
+
+                <!-- TRENNLINIE -->
+                <hr style="border-color: #222; margin: 2.5rem 0;">
+
+                <!-- DATENSCHUTZ -->
+                <h2>Datenschutzerklärung</h2>
+
+                <div class="space-y-3">
+                    <h3>1. Datenschutz auf einen Blick</h3>
+                    <p class="text-sm text-gray-400"><em>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen.</em></p>
+                    <p class="text-sm text-gray-400"><strong>Wer ist verantwortlich?</strong> Die Datenverarbeitung erfolgt durch den Websitebetreiber (siehe Impressum).</p>
+                    <p class="text-sm text-gray-400"><strong>Wie erfassen wir Ihre Daten?</strong> Zum einen durch Ihre Mitteilung. Andere Daten werden <em>automatisch</em> beim Besuch erfasst (Internetbrowser, Betriebssystem, Uhrzeit des Seitenaufrufs).</p>
+                    <p class="text-sm text-gray-400"><strong>Wofür nutzen wir Ihre Daten?</strong> Fehlerfreie Bereitstellung der Website. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
+                    <p class="text-sm text-gray-400"><strong>Welche Rechte haben Sie?</strong> Auskunft, Berichtigung, Löschung. Einwilligungen können <em>jederzeit</em> widerrufen werden.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3>2. Hosting</h3>
+                    <p class="text-sm text-gray-400">Diese Website wird extern gehostet. Rechtsgrundlage: <strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung) und <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse).</p>
+                    <p class="text-sm text-gray-400"><strong>Hoster:</strong> netcup GmbH, Daimlerstraße 25, D-76185 Karlsruhe. <em>Auftragsverarbeitung (AVV) vereinbart.</em></p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3>3. Verantwortliche Stelle</h3>
+                    <p class="text-sm text-gray-300"><strong>Heinz Just</strong><br>Rosengarten 5<br>32657 Lemgo</p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3>4. Server-Log-Dateien</h3>
+                    <p class="text-sm text-gray-400">Der Provider erfasst automatisch: <em>Browsertyp, Betriebssystem, Referrer URL, Hostname, Uhrzeit, IP-Adresse.</em> Keine Zusammenführung mit anderen Datenquellen. Grundlage: <strong>Art. 6 Abs. 1 lit. f DSGVO.</strong></p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3>5. Plugins und Tools</h3>
+                    <p class="text-sm text-gray-400"><strong>YouTube</strong> — Videos von Google Ireland Limited (Dublin). Beim Besuch wird eine Verbindung zu YouTube-Servern hergestellt. Grundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+                    <p class="text-sm text-gray-400"><strong>Spotify</strong> — Musik-Dienst der Spotify AB (Stockholm). Kann Cookies von Google Analytics einsetzen. Grundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+                </div>
+
+                <p class="text-xs text-gray-600 mt-8">Quelle: <a href="https://www.e-recht24.de" target="_blank" rel="noopener" class="hover:text-gray-400">e-recht24.de</a></p>
             </div>
         </section>
 
@@ -313,12 +638,12 @@
 
     <!-- Image Lightbox Modal -->
     <div id="image-lightbox-overlay" class="image-lightbox-overlay">
-        <div class="image-lightbox-container" onclick="event.stopPropagation()">
-            <button class="image-lightbox-close" onclick="closeLightbox()" aria-label="Schließen">×</button>
+        <div class="image-lightbox-container">
+            <button class="image-lightbox-close" aria-label="Schließen">×</button>
             <span class="image-lightbox-counter" id="image-lightbox-counter"></span>
-            <button class="image-lightbox-nav prev" onclick="navigateLightbox(-1)" aria-label="Vorheriges Bild">‹</button>
+            <button class="image-lightbox-nav prev" aria-label="Vorheriges Bild">‹</button>
             <img id="image-lightbox-image" class="image-lightbox-image" src="" alt="">
-            <button class="image-lightbox-nav next" onclick="navigateLightbox(1)" aria-label="Nächstes Bild">›</button>
+            <button class="image-lightbox-nav next" aria-label="Nächstes Bild">›</button>
             <div class="image-lightbox-caption" id="image-lightbox-caption"></div>
         </div>
     </div>
