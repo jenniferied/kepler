@@ -17,6 +17,7 @@ import { VideoViewer } from './viewers/VideoViewer.js?v=20260112';
 // Import animations
 import { AnimationController } from './animations/AnimationController.js';
 import { FloatingAnimation } from './animations/FloatingAnimation.js';
+import { StarfieldAnimation } from './animations/StarfieldAnimation.js';
 
 // Import media
 import { LazyLoader } from './media/LazyLoader.js';
@@ -24,6 +25,8 @@ import { ImageGallery } from './media/ImageGallery.js';
 
 // Import audio
 import { MusicPlayer } from './audio/MusicPlayer.js';
+import { AudioAnalyzer } from './audio/AudioAnalyzer.js';
+// ScreenShake removed — shake effect is now inside StarfieldAnimation
 
 // Import navigation
 import { PageNavigator } from './navigation/PageNavigator.js';
@@ -37,6 +40,9 @@ import { JournalManager } from './journal/JournalManager.js';
 import { InterestGraph } from './pages/InterestGraph.js';
 import { VideoGallery } from './pages/VideoGallery.js';
 import { ImageGalleryPage } from './pages/ImageGalleryPage.js';
+
+// Import UI
+import { PretextOverlay } from './ui/PretextOverlay.js';
 
 /**
  * Application class
@@ -94,9 +100,15 @@ class Application {
     // Phase 5: Setup animations
     await this.setupAnimations();
 
+    // Phase 5b: Setup starfield background on overview page
+    await this.setupStarfield();
+
     // Phase 6: Setup audio player
     await this.setupAudioPlayer();
-    
+
+    // Phase 7: Connect audio analysis to starfield visuals
+    this.setupAudioVisuals();
+
     // Phase 8: Setup navigation
     await this.setupNavigation();
     
@@ -111,6 +123,9 @@ class Application {
 
     // Phase 10c: Setup video gallery (generations page)
     await this.setupVideoGallery();
+
+    // Phase 10d: Setup Pretext text reflow overlays
+    await this.setupPretextOverlays();
 
     // Phase 11: Initialize media lazy loading
     await this.setupMediaLazyLoading();
@@ -389,6 +404,48 @@ class Application {
   }
 
   /**
+   * Setup starfield canvas animation on overview page
+   * @returns {Promise<void>}
+   */
+  async setupStarfield() {
+    const canvas = document.getElementById('starfield-canvas');
+    if (!canvas) {
+      console.log('[App] Starfield canvas not found, skipping');
+      return;
+    }
+
+    const starfield = new StarfieldAnimation(canvas, {
+      starCount: 200,
+      speed: 0.15,
+      trailLength: 0.15
+    });
+
+    this.animations.set('starfield', starfield);
+
+    // Helper: start/stop based on overview page visibility
+    const syncStarfield = (pageId) => {
+      if (pageId === 'overview') {
+        starfield.start();
+      } else {
+        starfield.stop();
+      }
+    };
+
+    // Start if overview page is already active
+    const overviewPage = document.getElementById('page-overview');
+    if (overviewPage && overviewPage.classList.contains('active')) {
+      starfield.start();
+    }
+
+    // Listen for page changes
+    this.eventBus.on('nav:pageChanged', (data) => {
+      syncStarfield(data.pageId);
+    });
+
+    console.log('[App] Starfield animation configured');
+  }
+
+  /**
    * Setup audio player
    * @returns {Promise<void>}
    */
@@ -485,6 +542,52 @@ class Application {
   }
 
   /**
+   * Connect audio analysis to the starfield animation.
+   * Creates an AudioAnalyzer on first play and feeds it to the starfield.
+   */
+  setupAudioVisuals() {
+    const audioElement = document.getElementById('audio-player');
+    const starfield = this.animations.get('starfield');
+    const mainContent = document.getElementById('main-content');
+
+    if (!audioElement) {
+      console.log('[App] Audio visuals skipped (missing audio element)');
+      return;
+    }
+
+
+    let analyzer = null;
+
+    const ensureAnalyzer = async () => {
+      if (analyzer) {
+        await analyzer.resume();
+        return;
+      }
+
+      analyzer = new AudioAnalyzer(audioElement, {
+        fftSize: 512,
+        smoothingTimeConstant: 0.7,
+        meydaBufferSize: 512,
+        onsetThreshold: 0.15,
+        onsetCooldown: 80,
+        beatThreshold: 0.2,
+        beatCooldown: 150
+      });
+      await analyzer.connect();
+      await analyzer.resume();
+
+      if (starfield) starfield.setAudioAnalyzer(analyzer);
+      this.uiComponents.set('audio-analyzer', analyzer);
+      console.log('[App] Audio analyzer connected (starfield + screen shake)');
+    };
+
+    this.eventBus.on('playback:play', () => ensureAnalyzer());
+    audioElement.addEventListener('play', () => ensureAnalyzer());
+
+    console.log('[App] Audio visuals wiring configured');
+  }
+
+  /**
    * Setup navigation system
    * @returns {Promise<void>}
    */
@@ -521,6 +624,25 @@ class Application {
         const pageId = item.dataset.page;
         if (pageId) {
           pageNavigator.showPage(pageId, item, true);
+        }
+      });
+    });
+
+    // Logo click → overview
+    const headerLogo = document.getElementById('header-logo');
+    if (headerLogo) {
+      headerLogo.addEventListener('click', () => {
+        pageNavigator.showPage('overview', null, true);
+      });
+    }
+
+    // Handle [data-nav-page] links (e.g. legal links on the Links page)
+    document.querySelectorAll('[data-nav-page]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pageId = link.dataset.navPage;
+        if (pageId) {
+          pageNavigator.showPage(pageId, null, true);
         }
       });
     });
@@ -695,6 +817,86 @@ class Application {
   }
 
   /**
+   * Setup Pretext text reflow overlays on [data-pretext] containers
+   * @returns {Promise<void>}
+   */
+  async setupPretextOverlays() {
+    // Skip if reduced motion is preferred
+    if (this.capabilities && this.capabilities.reducedMotion) {
+      console.log('[App] Pretext overlays disabled (reduced motion)');
+      return;
+    }
+
+    const containers = document.querySelectorAll('[data-pretext]');
+    if (containers.length === 0) {
+      console.log('[App] No [data-pretext] containers found');
+      return;
+    }
+
+    // Map of pageId -> overlay instances
+    const overlayMap = new Map();
+
+    for (const container of containers) {
+      const overlay = new PretextOverlay(container, {
+        eventBus: this.eventBus
+      });
+
+      const success = await overlay.initialize();
+      if (success) {
+        // Determine which page this container belongs to
+        const page = container.closest('.page-content');
+        const pageId = page ? page.id.replace('page-', '') : 'unknown';
+
+        if (!overlayMap.has(pageId)) {
+          overlayMap.set(pageId, []);
+        }
+        overlayMap.get(pageId).push(overlay);
+      }
+    }
+
+    if (overlayMap.size === 0) {
+      console.log('[App] No Pretext overlays initialized (CDN may be unavailable)');
+      return;
+    }
+
+    // Show overlays for the currently active page
+    const activePage = document.querySelector('.page-content.active');
+    if (activePage) {
+      const activeId = activePage.id.replace('page-', '');
+      const activeOverlays = overlayMap.get(activeId);
+      if (activeOverlays) {
+        activeOverlays.forEach(o => o.show());
+      }
+    }
+
+    // Listen for page changes to show/hide overlays
+    this.eventBus.on('nav:pageChanged', (data) => {
+      // Hide all overlays
+      overlayMap.forEach(overlays => {
+        overlays.forEach(o => o.hide());
+      });
+      // Show overlays for the new page
+      const pageOverlays = overlayMap.get(data.pageId);
+      if (pageOverlays) {
+        pageOverlays.forEach(o => o.show());
+      }
+    });
+
+    this.uiComponents.set('pretext-overlays', {
+      overlayMap,
+      dispose() {
+        overlayMap.forEach(overlays => {
+          overlays.forEach(o => o.destroy());
+        });
+        overlayMap.clear();
+      }
+    });
+
+    const totalCount = Array.from(overlayMap.values()).reduce((sum, arr) => sum + arr.length, 0);
+    console.log(`[App] ${totalCount} Pretext overlay(s) initialized across ${overlayMap.size} page(s)`);
+  }
+
+  /**
    * Setup media lazy loading
    * @returns {Promise<void>}
    */
@@ -861,7 +1063,7 @@ if (document.readyState === 'loading') {
 
 // Expose app globally for debugging (optional, can be removed in production)
 if (typeof window !== 'undefined') {
-  window.everythingMachineApp = app;
+  window.keplerApp = app;
 }
 
 export default app;
