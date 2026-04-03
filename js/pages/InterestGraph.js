@@ -495,11 +495,29 @@ export class InterestGraph {
     if (this.settled || this.reducedMotion) this._draw();
   }
 
+  /* ── Suspend / Resume ──────────────────────────── */
+
+  suspend() {
+    if (this.animFrameId) {
+      cancelAnimationFrame(this.animFrameId);
+      this.animFrameId = null;
+    }
+    if (this.settleTimer) {
+      clearTimeout(this.settleTimer);
+      this.settleTimer = null;
+    }
+  }
+
+  resume() {
+    if (!this.animFrameId) {
+      this._wake();
+    }
+  }
+
   /* ── Cleanup ───────────────────────────────────── */
 
   dispose() {
-    if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
-    if (this.settleTimer) clearTimeout(this.settleTimer);
+    this.suspend();
     this.canvas.removeEventListener('pointerdown', this._onPointerDown);
     this.canvas.removeEventListener('pointermove', this._onPointerMove);
     this.canvas.removeEventListener('pointerup', this._onPointerUp);

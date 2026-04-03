@@ -167,8 +167,19 @@ export class VideoGallery {
     });
   }
 
+  suspend() {
+    if (this.container) {
+      this.container.querySelectorAll('video').forEach(v => {
+        v.pause();
+      });
+    }
+  }
+
+  resume() {
+    // Videos stay paused until user interaction — nothing to resume
+  }
+
   dispose() {
-    // Pause all videos
     if (this.container) {
       this.container.querySelectorAll('video').forEach(v => {
         v.pause();

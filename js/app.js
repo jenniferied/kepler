@@ -7,6 +7,7 @@
 import { FeatureDetector } from './core/FeatureDetector.js';
 import { ScriptLoader } from './core/ScriptLoader.js';
 import { EventBus } from './core/EventBus.js';
+import { PageLifecycleManager } from './core/PageLifecycleManager.js';
 
 // Import viewers (cache-bust: v20260213b)
 import { ThreeDViewer } from './viewers/ThreeDViewer.js?v=20260213b';
@@ -62,12 +63,15 @@ class Application {
     
     // Viewers
     this.viewers = new Map();
-    
+
     // Animations
     this.animations = new Map();
-    
+
     // UI Components
     this.uiComponents = new Map();
+
+    // Page lifecycle
+    this.pageLifecycle = null;
     
     // State
     this.initialized = false;
@@ -130,7 +134,13 @@ class Application {
     // Phase 11: Initialize media lazy loading
     await this.setupMediaLazyLoading();
     
-    // Phase 12: Start the application
+    // Phase 12: Seed lifecycle manager with the current active page
+    const pageNav = this.uiComponents.get('page-navigator');
+    if (pageNav) {
+      this.pageLifecycle.activePage = pageNav.getCurrentPage();
+    }
+
+    // Phase 13: Start the application
     this.start();
     
     this.initialized = true;
@@ -150,6 +160,7 @@ class Application {
     this.featureDetector = new FeatureDetector();
     this.scriptLoader = new ScriptLoader();
     this.eventBus = new EventBus();
+    this.pageLifecycle = new PageLifecycleManager(this.eventBus);
     
     // Enable debug mode in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -237,6 +248,12 @@ class Application {
       );
 
       this.viewers.set('3d-viewer', threeDViewer);
+
+      // Suspend/resume 3D render loop on page change
+      this.pageLifecycle.register('overview', {
+        activate: () => threeDViewer.resume(),
+        suspend: () => threeDViewer.suspend()
+      });
 
       // Lazy load: Only setup when visible in viewport AND on overview page
       const initViewer = async () => {
@@ -372,11 +389,17 @@ class Application {
       );
       
       await floatingAnimation.initialize();
-      
+
       // Register with animation controller
       this.animationController.register('floating-homepage', floatingAnimation);
       this.animations.set('floating', floatingAnimation);
-      
+
+      // Pause/resume on page change
+      this.pageLifecycle.register('overview', {
+        activate: () => floatingAnimation.resume(),
+        suspend: () => floatingAnimation.pause()
+      });
+
       console.log(`[App] Floating animation setup for ${floatingElements.length} elements`);
     }
     
@@ -395,9 +418,14 @@ class Application {
       );
       
       await parallaxAnimation.initialize();
-      
+
       this.animationController.register('parallax-homepage', parallaxAnimation);
       this.animations.set('parallax', parallaxAnimation);
+
+      this.pageLifecycle.register('overview', {
+        activate: () => parallaxAnimation.resume(),
+        suspend: () => parallaxAnimation.pause()
+      });
       
       console.log(`[App] Parallax animation setup for ${parallaxElements.length} elements`);
     }
@@ -422,25 +450,17 @@ class Application {
 
     this.animations.set('starfield', starfield);
 
-    // Helper: start/stop based on overview page visibility
-    const syncStarfield = (pageId) => {
-      if (pageId === 'overview') {
-        starfield.start();
-      } else {
-        starfield.stop();
-      }
-    };
+    // Register with lifecycle manager
+    this.pageLifecycle.register('overview', {
+      activate: () => starfield.start(),
+      suspend: () => starfield.stop()
+    });
 
     // Start if overview page is already active
     const overviewPage = document.getElementById('page-overview');
     if (overviewPage && overviewPage.classList.contains('active')) {
       starfield.start();
     }
-
-    // Listen for page changes
-    this.eventBus.on('nav:pageChanged', (data) => {
-      syncStarfield(data.pageId);
-    });
 
     console.log('[App] Starfield animation configured');
   }
@@ -712,18 +732,22 @@ class Application {
       console.log('[App] Interest graph initialized');
     };
 
+    // Register lifecycle: suspend animation loop when leaving about page
+    this.pageLifecycle.register('about', {
+      activate: () => {
+        initGraph();
+        if (graph) graph.resume();
+      },
+      suspend: () => {
+        if (graph) graph.suspend();
+      }
+    });
+
     // Check if already on about page
     const aboutPage = document.getElementById('page-about');
     if (aboutPage && aboutPage.classList.contains('active')) {
       initGraph();
     }
-
-    // Lazy-load when navigating to about page
-    this.eventBus.on('nav:pageChanged', (data) => {
-      if (data.pageId === 'about') {
-        initGraph();
-      }
-    });
   }
 
   /**
@@ -791,6 +815,12 @@ class Application {
       console.log('[App] Video gallery initialized');
     };
 
+    // Register lifecycle: pause videos when leaving page
+    this.pageLifecycle.register('generations', {
+      activate: () => initGallery(),
+      suspend: () => { if (gallery) gallery.suspend(); }
+    });
+
     // Check if we need to auto-navigate for deep links
     const hash = location.hash;
     if (hash.startsWith('#video/') || hash === '#generations') {
@@ -807,13 +837,6 @@ class Application {
     if (pageNavigator && pageNavigator.getCurrentPage() === 'generations') {
       initGallery();
     }
-
-    // Lazy-load when navigating to generations page
-    this.eventBus.on('nav:pageChanged', (data) => {
-      if (data.pageId === 'generations') {
-        initGallery();
-      }
-    });
   }
 
   /**
@@ -1024,6 +1047,11 @@ class Application {
     this.uiComponents.forEach(component => component.dispose());
     this.uiComponents.clear();
     
+    // Dispose page lifecycle
+    if (this.pageLifecycle) {
+      this.pageLifecycle.dispose();
+    }
+
     // Clear event bus
     if (this.eventBus) {
       this.eventBus.clear();

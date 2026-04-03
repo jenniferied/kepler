@@ -947,10 +947,21 @@ export class ThreeDViewer extends ViewerBase {
     `;
   }
 
-  dispose() {
+  suspend() {
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
     }
+  }
+
+  resume() {
+    if (this.isInitialized && !this.animationFrameId) {
+      this.animate();
+    }
+  }
+
+  dispose() {
+    this.suspend();
     if (this.resizeHandler) {
       window.removeEventListener('resize', this.resizeHandler);
     }
