@@ -59,7 +59,7 @@ export class GridLayoutOptimizer {
     // Incremental update (only target bubble)
     if (targetBubble && targetBubble.classList.contains('content-bubble')) {
       const bubbleHeight = targetBubble.offsetHeight;
-      const span = Math.max(1, Math.ceil((bubbleHeight + rowGap) / totalRowSize));
+      const span = Math.max(1, Math.ceil((bubbleHeight + rowGap) / totalRowSize) + 2);
       targetBubble.style.gridRowEnd = `span ${span}`;
       
       // Force reflow
@@ -70,7 +70,7 @@ export class GridLayoutOptimizer {
     // Full recalculation
     bubbles.forEach((bubble) => {
       const bubbleHeight = bubble.offsetHeight;
-      const span = Math.max(1, Math.ceil((bubbleHeight + rowGap) / totalRowSize));
+      const span = Math.max(1, Math.ceil((bubbleHeight + rowGap) / totalRowSize) + 2);
       bubble.style.gridRowEnd = `span ${span}`;
     });
     
