@@ -631,49 +631,52 @@ main.container {
     padding: 1.5rem;
 }
 
-#page-rechtliches h2,
 #page-rechtliches h2 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     color: #e0e0e0;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #222;
+    margin-bottom: 0.5rem;
 }
 
-#page-rechtliches h3,
 #page-rechtliches h3 {
-    font-size: 0.95rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
     font-weight: 500;
     color: #d0d0d0;
-    margin-top: 0.5rem;
-    padding-left: 0.75rem;
-    border-left: 2px solid #333;
+    margin-top: 0.25rem;
 }
 
-#page-rechtliches h4,
 #page-rechtliches h4 {
-    font-size: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
     font-weight: 500;
     color: #aaa;
-    margin-top: 0.75rem;
+    margin-top: 0.25rem;
 }
 
-#page-rechtliches p,
 #page-rechtliches p {
-    line-height: 1.8;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    color: #999;
 }
 
-#page-rechtliches strong,
 #page-rechtliches strong {
     color: #ccc;
 }
 
-#page-rechtliches .space-y-4 + .space-y-4,
-#page-rechtliches .space-y-4 + .space-y-4 {
-    padding-top: 1rem;
-    border-top: 1px solid #1a1a1a;
+#page-rechtliches .space-y-3 {
+    margin-top: 0.25rem;
+}
+
+#page-rechtliches .space-y-4 {
+    margin-top: 0.25rem;
+}
+
+#page-rechtliches hr {
+    margin: 0.75rem 0;
 }
 
 /* Visually hidden (screen reader only) */
